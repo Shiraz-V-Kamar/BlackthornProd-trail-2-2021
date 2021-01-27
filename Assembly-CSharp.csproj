@@ -11,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{4CBF1D51-8FA8-298D-1FBF-F4F53035E572}</ProjectGuid>
+    <ProjectGuid>{00CA3B65-330D-FDE8-E07E-92B39662C2CD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -62,8 +62,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\MovementOldInput.cs" />
-    <Compile Include="Assets\movement.cs" />
+    <Compile Include="Assets\Scripts\MovementOldInput.cs" />
+    <Compile Include="Assets\Scripts\PlayerMoveNav.cs" />
+    <Compile Include="Assets\Scripts\movement.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.17f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -248,7 +249,7 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.17f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/Blackthornprod-Game-Jam-2021/BlackthornProd Jam/Library/PackageCache/com.unity.ext.nunit@1.0.5/net35/unity-custom/nunit.framework.dll</HintPath>
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/PackageCache/com.unity.ext.nunit@1.0.5/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.17f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -602,40 +603,40 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.17f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/Blackthornprod-Game-Jam-2021/BlackthornProd Jam/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/Blackthornprod-Game-Jam-2021/BlackthornProd Jam/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InputSystem">
-      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/Blackthornprod-Game-Jam-2021/BlackthornProd Jam/Library/ScriptAssemblies/Unity.InputSystem.dll</HintPath>
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.InputSystem.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/Blackthornprod-Game-Jam-2021/BlackthornProd Jam/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/Blackthornprod-Game-Jam-2021/BlackthornProd Jam/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/Blackthornprod-Game-Jam-2021/BlackthornProd Jam/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/Blackthornprod-Game-Jam-2021/BlackthornProd Jam/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Postprocessing.Editor">
-      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/Blackthornprod-Game-Jam-2021/BlackthornProd Jam/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/Blackthornprod-Game-Jam-2021/BlackthornProd Jam/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/Blackthornprod-Game-Jam-2021/BlackthornProd Jam/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/Blackthornprod-Game-Jam-2021/BlackthornProd Jam/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/Blackthornprod-Game-Jam-2021/BlackthornProd Jam/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>

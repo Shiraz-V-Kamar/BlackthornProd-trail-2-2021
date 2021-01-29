@@ -71,23 +71,53 @@
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUI.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs" />
-    <Compile Include="Assets\Scripts\MovementOldInput.cs" />
-    <Compile Include="Assets\Scripts\PlayerMoveNav.cs" />
-    <Compile Include="Assets\Scripts\VisionControl.cs" />
-    <Compile Include="Assets\Scripts\movement.cs" />
-    <Compile Include="Assets\Scripts\movementVerstion2.cs" />
-    <Compile Include="Assets\WolfScript.cs" />
+    <Compile Include="Assets\Farmer Base\FarmerAnimControl.cs" />
+    <Compile Include="Assets\GameManager.cs" />
+    <Compile Include="Assets\Images\Menu Toggle.cs" />
+    <Compile Include="Assets\Scripts\HoldEventInfo.cs" />
+    <Compile Include="Assets\Scripts\KillSphereCode.cs" />
+    <Compile Include="Assets\Scripts\Player\MovementOldInput.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerMoveNav.cs" />
+    <Compile Include="Assets\Scripts\Player\VisionControl.cs" />
+    <Compile Include="Assets\Scripts\Player\movement.cs" />
+    <Compile Include="Assets\Scripts\Player\movementVerstion2.cs" />
+    <Compile Include="Assets\Scripts\ScriptToTestAgent.cs" />
+    <Compile Include="Assets\Scripts\StencilSphereBehavior.cs" />
+    <Compile Include="Assets\Scripts\Wolf Scripts\WolfManager.cs" />
+    <Compile Include="Assets\Scripts\Wolf Scripts\WolfVisuals.cs" />
+    <Compile Include="Assets\Scripts\WolfScript.cs" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\Shaders\StylizedSurface\StylizedSurfaceStencil buffer.shader" />
     <None Include="Assets\Shaders\StylizedSurface\DustyroomTerrainSplatmapCommon.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\Shaders\GradientSkybox\GradientSkybox.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\Shaders\StylizedSurface\DustyroomStylizedLighting.cginc" />
     <None Include="Assets\Shaders\StylizedSurface\StylizedSurfaceOutline.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\Shaders\StencilShaderTrailWrite.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\Demigiant\DOTween\readme.txt" />
     <None Include="Assets\Shaders\StylizedSurface\StylizedSurfaceCutout.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\Shaders\StylizedSurface\StylizedSurface.shader" />
     <None Include="Assets\Shaders\LightPlane.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\Shaders\StylizedSurface\Terrain.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.17f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -669,6 +699,12 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Formats.Alembic.Runtime">
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.Formats.Alembic.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Formats.Alembic.Editor">
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.Formats.Alembic.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>

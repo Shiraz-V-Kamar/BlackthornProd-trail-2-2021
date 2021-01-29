@@ -8,7 +8,7 @@ ModelImporter:
     materialImportMode: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -16,14 +16,7 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: "Avatar Rig Configuration mis-match. Bone length in configuration
-      does not match position in animation file:\n\t'mixamorig:LeftUpLeg' : position
-      error = 8930.317383 mm\n\t'mixamorig:LeftLeg' : position error = 43419.210938
-      mm\n\t'mixamorig:LeftFoot' : position error = 40131.148438 mm\n\t'mixamorig:LeftToeBase'
-      : position error = 16343.725586 mm\n\t'mixamorig:RightUpLeg' : position error
-      = 8918.073242 mm\n\t'mixamorig:RightLeg' : position error = 43249.468750 mm\n\t'mixamorig:RightFoot'
-      : position error = 40183.929688 mm\n\t'mixamorig:RightToeBase' : position error
-      = 17041.291016 mm\n"
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 

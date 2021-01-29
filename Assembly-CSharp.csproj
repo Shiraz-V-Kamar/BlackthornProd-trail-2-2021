@@ -2,8 +2,6 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-    <CscToolPath>C:\Program Files\Unity\Hub\Editor\2019.4.17f1\Editor\Data\Tools\RoslynScripts</CscToolPath>
-    <CscToolExe>unity_csc.bat</CscToolExe>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -49,10 +47,14 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Unity/VSTU</UnityProjectGenerator>
+    <UnityProjectGeneratorVersion>4.8.2.0</UnityProjectGeneratorVersion>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>2019.4.17f1</UnityVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2019.4.17f1\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -62,9 +64,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs" />
+    <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModulePhysics.cs" />
+    <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModulePhysics2D.cs" />
+    <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleSprite.cs" />
+    <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUI.cs" />
+    <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
+    <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs" />
     <Compile Include="Assets\Scripts\MovementOldInput.cs" />
     <Compile Include="Assets\Scripts\PlayerMoveNav.cs" />
+    <Compile Include="Assets\Scripts\VisionControl.cs" />
     <Compile Include="Assets\Scripts\movement.cs" />
+    <Compile Include="Assets\Scripts\movementVerstion2.cs" />
+    <Compile Include="Assets\WolfScript.cs" />
+    <None Include="Assets\Shaders\StylizedSurface\StylizedSurfaceStencil buffer.shader" />
+    <None Include="Assets\Shaders\StylizedSurface\DustyroomTerrainSplatmapCommon.cginc" />
+    <None Include="Assets\Shaders\GradientSkybox\GradientSkybox.shader" />
+    <None Include="Assets\Shaders\StylizedSurface\DustyroomStylizedLighting.cginc" />
+    <None Include="Assets\Shaders\StylizedSurface\StylizedSurfaceOutline.shader" />
+    <None Include="Assets\Shaders\StencilShaderTrailWrite.shader" />
+    <None Include="Assets\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\Shaders\StylizedSurface\StylizedSurfaceCutout.shader" />
+    <None Include="Assets\Shaders\StylizedSurface\StylizedSurface.shader" />
+    <None Include="Assets\Shaders\LightPlane.shader" />
+    <None Include="Assets\Shaders\StylizedSurface\Terrain.shader" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.17f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -247,6 +270,9 @@
     </Reference>
     <Reference Include="UnityEditor">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.17f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/PackageCache/com.unity.ext.nunit@1.0.5/net35/unity-custom/nunit.framework.dll</HintPath>
@@ -605,6 +631,9 @@
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
@@ -631,6 +660,9 @@
     </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
       <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>

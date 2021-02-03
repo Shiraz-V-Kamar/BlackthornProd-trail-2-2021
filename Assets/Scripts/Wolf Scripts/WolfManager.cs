@@ -39,11 +39,22 @@ public class WolfManager : MonoBehaviour
 
     private void Update()
     {
-
+        if(Vector3.Distance(wolfScript.spawnPoint.transform.position,transform.position) < 1)
+        {
+            wolfScript.wolfRepellent = false;
+        }
+        if (player != null)
+        {
+            if (playerMoveNav.ReachedHome)
+            {
+                wolfScript.FadeOutChaseSound();
+            }
+        }
         if (visionControl != null)
         {
             if (wolfScript.wolfRepellent)
             {
+                
                 wolfScript.state = WolfScript.State.Retreat;
                 wolfScript.FadeOutChaseSound();
             }
@@ -55,16 +66,20 @@ public class WolfManager : MonoBehaviour
                 {
                     if (!wolfScript.kill)
                     {
-                        if (wolfScript.isInRange)
+                        if (player != null)
                         {
-                            wolfScript.PlayWolfChaseSound();
-                        }
-                        else
-                        {
-                            wolfScript.FadeOutChaseSound();
+                            if (wolfScript.isInRange && !playerMoveNav.ReachedHome)
+                            {
+                                wolfScript.PlayWolfChaseSound();
+                            }
+                            else
+                            {
+                                wolfScript.FadeOutChaseSound();
+                            }
                         }
                     }
                     else
+                
                     {
                         wolfScript.FadeOutChaseSound();
                     }
@@ -73,13 +88,16 @@ public class WolfManager : MonoBehaviour
                 {
                     if (!wolfScript.kill)
                     {
-                        if (wolfScript.isInRange)
+                        if (player != null)
                         {
-                            wolfScript.PlayWolfChaseSound();
-                        }
-                        else
-                        {
-                            wolfScript.FadeOutChaseSound();
+                            if (wolfScript.isInRange && !playerMoveNav.ReachedHome)
+                            {
+                                wolfScript.PlayWolfChaseSound();
+                            }
+                            else
+                            {
+                                wolfScript.FadeOutChaseSound();
+                            }
                         }
                     }
                     else
@@ -103,7 +121,21 @@ public class WolfManager : MonoBehaviour
                         }
                         else
                         {
-                            wolfScript.state = WolfScript.State.Idle;
+                            if (wolfScript.StayTimeout > 0)
+                            {
+
+                                wolfScript.state = WolfScript.State.stay;
+                            }
+                            else
+                            {
+                                wolfScript.state = WolfScript.State.Retreat;
+                                if (wolfScript.enemyagent.remainingDistance < 1)
+                                {
+
+                                    wolfScript.state = WolfScript.State.Idle;
+                                }
+                            }
+                            
                         }
 
                     }
@@ -117,6 +149,7 @@ public class WolfManager : MonoBehaviour
                         }
                         else
                         {
+                            //Debug.Log(wolfScript.StayTimeout);
                             if (wolfScript.StayTimeout > 0)
                             {
 
@@ -125,10 +158,11 @@ public class WolfManager : MonoBehaviour
                             else
                             {
                                 wolfScript.state = WolfScript.State.Retreat;
-                                if(wolfScript.enemyagent.remainingDistance<1)
-                                {
-                                    wolfScript.state = WolfScript.State.Idle;
-                                }
+                                //if(wolfScript.enemyagent.remainingDistance<1)
+                                //{
+                                    
+                                  //  wolfScript.state = WolfScript.State.Idle;
+                                //}
                             }
                         }
                     }

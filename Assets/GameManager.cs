@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using TMPro;
 using DG.Tweening;
 
 public class GameManager : MonoBehaviour
@@ -27,9 +28,13 @@ public class GameManager : MonoBehaviour
 
     private bool CanPlayGameOverMusic;
     private bool CanPlayGameCompleteMusic;
+    
+    public TextMeshProUGUI TimetakenText;
+
+    public float TimeToComplete =0;
     private void Start()
     {
-
+        TimeToComplete = 0;
         CanPlayGameCompleteMusic = true;
         CanPlayGameOverMusic = true;
         ClickSouncSource.clip = ClickSoundClip;
@@ -45,9 +50,16 @@ public class GameManager : MonoBehaviour
         
         if(HomeObj.Reached)
         {
+    
+         
+            heartbeatscriptholder.heartbeatsource.Stop();
             PlayerObj.GetComponent<PlayerMoveNav>().ReachedHome = true;
             Time.timeScale = 0;
             GameFinished();
+        }
+        else
+        {
+            TimeToComplete += Time.deltaTime;
         }
         if (PlayerObj.GetComponent<PlayerMoveNav>().wolfattacked == true) 
         {
@@ -56,9 +68,9 @@ public class GameManager : MonoBehaviour
     }
     public void GameFinished()
     {
-
-
-        heartbeatscriptholder.FadeHeartbeat();
+       
+        TimetakenText.text = TimeToComplete.ToString();
+       
         GamePanel.SetActive(false);
         WinScreenObj.SetActive(true);
         WinText.SetActive(true);

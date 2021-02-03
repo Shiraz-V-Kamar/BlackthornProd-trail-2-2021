@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class WolfVisuals : MonoBehaviour
 {
-    public ParticleSystem wolfTriggerParticle;
-    
+    public GameObject WolfTriggerParticleObj;
+  
     public void TriggerWolfDetectionParticl()
     {
-        wolfTriggerParticle.Play();
+        
+        GameObject z =  Instantiate(WolfTriggerParticleObj, transform );
+        z.GetComponent<ParticleSystem>().Play();
+
     }
 }

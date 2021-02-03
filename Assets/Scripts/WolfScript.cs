@@ -25,8 +25,10 @@ public class WolfScript : MonoBehaviour
     public bool kill = false, isInRange, Retreat, slow;
 
     public bool chase;
+    public bool retreat;
     private bool playWolfAlerSound = true;
-    [HideInInspector]
+    public  bool playWolfHowlSound = true;
+    //[HideInInspector]
     public bool wolfRepellent= false;
 
     private Animator enemyAnim;
@@ -34,11 +36,12 @@ public class WolfScript : MonoBehaviour
 
 
     [HideInInspector]
-    public float StayTimeout = 5f;
+    public float StayTimeout = 8f;
     public float waitAfterTrigger;
     public float waitForChase;
     private float _distToPlayer;
-    private float slowSPeed = 1.5f;
+    [SerializeField]
+    private float slowSPeed = 2f;
     private float _blendValue;
 
     public AudioClip WolfAlert;
@@ -51,8 +54,9 @@ public class WolfScript : MonoBehaviour
     private WolfVisuals wolfVisuals;
     private float _enemyAnimStart = 1f;
     [SerializeField]
-    private float enemySpeed;
+    private float enemySpeed = 4f;
     private Vector3 direction;
+
 
 
 
@@ -66,6 +70,7 @@ public class WolfScript : MonoBehaviour
 
     private void Start()
     {
+        playWolfHowlSound = true;
         spawnPoint.parent = null;
         WolfAlertSource = GetComponent<AudioSource>();
         WolfAlertSource.clip = WolfAlert;
@@ -109,19 +114,19 @@ public class WolfScript : MonoBehaviour
         {
             enemyagent.isStopped = true;
         }
-    }
+
+       
+    } 
 
     private void Statecheck()
     {
         if (state == State.Idle)
         {
             wolfRepellent = false;
-            StayTimeout = 15f;
             playWolfAlerSound = true;
             chase = false;
             StopCoroutine(MoveEnemyToPos((0.1f)));
 
-            //Play the idle animation 
 
         }
         else if (state == State.triggered)
@@ -131,7 +136,7 @@ public class WolfScript : MonoBehaviour
             {
                 PlayWolfAlertSound();
             }
-            StayTimeout = 15f;
+            StayTimeout = 8f;
             slow = false;
             enemyAnim.SetBool("Triggered", true);
             if (isInRange)
@@ -157,23 +162,23 @@ public class WolfScript : MonoBehaviour
         {
             chase = false;
             StayTimeout -= Time.deltaTime;
-            StayTimeout = Mathf.Clamp(StayTimeout, 0, 15f);
+            StayTimeout = Mathf.Clamp(StayTimeout, 0, 8f);
+            
+            slow = false;
+            enemyagent.SetDestination(transform.position);
+            if (!isInRange)
             {
-                slow = false;
-                enemyagent.SetDestination(transform.position);
-                if (!isInRange)
-                {
-                    enemyAnim.SetBool("Triggered", false);
-                    enemyAnim.SetBool("Sniff", true);
-                    enemyAnim.SetFloat("MoveBlendWolf", _blendValue, _enemyAnimStart, Time.deltaTime);
-                }
-
+                enemyAnim.SetBool("Triggered", false);
+                enemyAnim.SetBool("Sniff", true);
+                enemyAnim.SetFloat("MoveBlendWolf", _blendValue, _enemyAnimStart, Time.deltaTime);
             }
+            retreat = true;
+            
         }
         else if (state == State.chase)
         {
            
-            StayTimeout = 15f;
+            StayTimeout = 8f;
             enemyAnim.SetBool("Triggered", true);
             enemyAnim.SetBool("Sniff", false);
             
@@ -183,39 +188,46 @@ public class WolfScript : MonoBehaviour
             chase = true;
             slow = true;
 
-            Debug.Log("chase state");
+        
         }
         else if (state == State.Retreat)
-        { 
+        {
+            
             chase = false;
             slow = false;
             Vector3 Spawndirection = spawnPoint.position - transform.position;
             Spawndirection.y = 0f;
             Spawndirection.Normalize();
-
-            enemyAnim.SetFloat("MoveBlendWolf", _blendValue, _enemyAnimStart, Time.deltaTime);
-            enemyagent.SetDestination(spawnPoint.position);
+            if (transform.forward != Spawndirection)
+            {
+                DOTween.To(() => transform.forward, X => transform.forward = X, Spawndirection, 1.8f);
+            }
+                enemyAnim.SetFloat("MoveBlendWolf", _blendValue, _enemyAnimStart, Time.deltaTime);
+           
+            StartCoroutine(MoveEnemyToSpawn(1f));
             if (enemyagent.remainingDistance < 0.5f)
             {
+               
+                state = State.Idle;
                 enemyAnim.SetBool("Triggered", false);
                 enemyAnim.SetBool("Sniff", false);
             }
             else
             {
-                DOTween.To(() => transform.forward, X => transform.forward = X, Spawndirection, 1.8f);
+                enemyAnim.SetBool("Triggered", true);
+                enemyAnim.SetBool("Sniff", false);
+               
+             
             }
-            Debug.Log("Retreat state");
+           
         }
         else if (state == State.kill)
         {
-
-            //Trigger the lose condition for the player
-            //Stop the the game 
             //play the camera out animation 
             
             chase = false;
             enemyAnim.SetBool("attack", true);
-            Debug.Log("Kill state");
+           
         }
 
         
@@ -264,7 +276,12 @@ public class WolfScript : MonoBehaviour
         }
     }
 
-
+    IEnumerator MoveEnemyToSpawn(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+       
+            enemyagent.SetDestination(spawnPoint.transform.position);
+    }
     void PlayWolfAlertSound()
     {
 
@@ -276,12 +293,14 @@ public class WolfScript : MonoBehaviour
 
     public void PlayWolfChaseSound()
     {
-
-        WolfGrowlSource.DOFade(0.04f, 0.5f);
-        WolfGrowlSource.clip = wolfgrowlingsound;
-        if (!WolfGrowlSource.isPlaying)
+        if (playWolfHowlSound)
         {
-            WolfGrowlSource.Play();
+            WolfGrowlSource.DOFade(0.04f, 0.5f);
+            WolfGrowlSource.clip = wolfgrowlingsound;
+            if (!WolfGrowlSource.isPlaying)
+            {
+                WolfGrowlSource.Play();
+            }
         }
     }
 

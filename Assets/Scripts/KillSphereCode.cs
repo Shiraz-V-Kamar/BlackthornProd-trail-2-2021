@@ -5,11 +5,14 @@ using UnityEngine;
 public class KillSphereCode : MonoBehaviour
 {
     public PlayerMoveNav playerMoveNav;
-    private void OnTriggerEnter(Collider other)
+
+ 
+
+   private void OnTriggerEnter(Collider other)
     {
        if(other.tag == "enemy")
         {
-            Debug.Log("Death Sphere Triggered");
+            
             other.gameObject.GetComponent<WolfManager>()
                             .SetKillState(true);
             playerMoveNav.wolfattacked = true;
@@ -26,4 +29,5 @@ public class KillSphereCode : MonoBehaviour
             playerMoveNav.Getwolfposition(other.transform.position);
         }
     }
+
 }

@@ -37,9 +37,10 @@ public class VisionControl : MonoBehaviour
     private AudioSource VisionSoundSource;
     private float VisionSoundControl;
 
-    private void Start()
+    private void Awake()
     {
         vignetteControlVal = 1;
+        grainControlVal = 0.3f;
         VisionSoundSource = GetComponent<AudioSource>();
     }
     public void Update()
@@ -81,7 +82,7 @@ public class VisionControl : MonoBehaviour
         else if (vignetteControlVal < 0.4f)
         {
             VisionSoundControl = 0.8f;
-            _sphereScaleValue = 32f;
+            _sphereScaleValue = 35f;
             vignetteControlVal = 0.4f;
             grainControlVal= 0;
             VignetteIntensitySlider.value = 0.4f;
@@ -89,10 +90,10 @@ public class VisionControl : MonoBehaviour
       
         grainControlVal= Mathf.Clamp(grainControlVal, 0f, 0.3f);
         vignetteControlVal = Mathf.Clamp(vignetteControlVal, 0.4f, 1f);
-        _sphereScaleValue = Mathf.Clamp(_sphereScaleValue, 17f, 32f);
+        _sphereScaleValue = Mathf.Clamp(_sphereScaleValue, 17f, 35f);
         VisionSoundControl = Mathf.Clamp(VisionSoundControl, 0, 0.8f);
        
-        DOTween.To(setvalueforVignettetween, _VignetteIntensityValue, Mathf.Clamp(vignetteControlVal,0.4f,3f), 0.5f);
+        DOTween.To(setvalueforVignettetween, _VignetteIntensityValue, Mathf.Clamp(vignetteControlVal,0.4f,3f), 1.5f);
         DOTween.To(setvalueforGraintween, _GrainIntensityValue, grainControlVal, 0.5f);
         VisionSoundSource.DOPitch(VisionSoundControl, 0.5f);
         

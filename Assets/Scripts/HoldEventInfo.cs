@@ -31,7 +31,7 @@ public class HoldEventInfo : MonoBehaviour
     void SetaValue()
     {
         WolfAlertSource.Play();
-        Debug.Log("ScripWorked");
+        
         playerMoveNav.wolfattacked = true;
     }
     

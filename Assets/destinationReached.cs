@@ -5,6 +5,9 @@ using UnityEngine;
 public class destinationReached : MonoBehaviour
 {
     public bool Reached = false;
+  
+
+    
 
     private void OnTriggerEnter(Collider other)
     {

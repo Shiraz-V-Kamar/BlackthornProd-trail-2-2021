@@ -16,10 +16,9 @@ public class PlayerMoveNav : MonoBehaviour
     public GameObject MoveMarker;
     public GameObject model;
 
-    public KillSphereCode killSphereCode;
     private VisionControl _visionControl;
     private Animator _playeranimator;
-    public GameManager gameManager;
+   
 
     public LayerMask isground;
     public NavMeshAgent player;
@@ -41,18 +40,25 @@ public class PlayerMoveNav : MonoBehaviour
     private float blendVariable;
     private float PlayerCrouchspeed = 2.5f;
     private float PlayerWalkspeed = 4f;
-   
+
+    private float distbetweenPlayerAndTarget;
+
+
     private Vector3 direction;
+    private Vector3 target;
 
     public AudioSource ClickSoundSource;
     public AudioClip doubleClickSound;
     public AudioClip rightClickSound;
-  
+
+    [HideInInspector]
+    public float visionItensityValueHolder;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        distbetweenPlayerAndTarget = 0f;
         MoveMarker.SetActive(false);
         MoveMarker.transform.parent = null;
         _MouseSingleClickTimer.Interval = 400;
@@ -80,7 +86,8 @@ public class PlayerMoveNav : MonoBehaviour
     {
         CheckDistToFinish();
         player.updateRotation = false;
-        if(_visionControl._VignetteIntensityValue > 0.7)
+        visionItensityValueHolder = _visionControl._VignetteIntensityValue;
+        if (_visionControl._VignetteIntensityValue > 0.7)
         {
             //play the sound here 
             isCrouching = true;
@@ -90,9 +97,20 @@ public class PlayerMoveNav : MonoBehaviour
             isCrouching = false;
         }
 
-      
-        blendVariable = Mathf.Clamp(player.remainingDistance,0f,10f);
+        if (target == Vector3.zero)
+        {
+            distbetweenPlayerAndTarget = 0f;
+        }
+        else
+        {
+            distbetweenPlayerAndTarget = Vector3.Distance(player.transform.position, target);
+            if (distbetweenPlayerAndTarget < 1)
+            {
+                distbetweenPlayerAndTarget = 0f;
+            }
 
+            blendVariable = Mathf.Clamp(distbetweenPlayerAndTarget, 0f, 10f);
+        }
         if (blendVariable > 0 && blendVariable < 8)
         {
             if (_velocity != 0.2f)
@@ -100,16 +118,19 @@ public class PlayerMoveNav : MonoBehaviour
                 DOTween.To(() => _velocity, X => _velocity = X, 0.2f, .25f * Time.deltaTime);
             }
         }
-        else if (player.remainingDistance > 8)
+        else if (blendVariable > 8)
         {
             DOTween.To(() => _velocity, X => _velocity = X, 0.5f, .25f * Time.deltaTime);
 
         }
-        else
+        else if (blendVariable <1)
         {
 
-            DOTween.To(() => _velocity, X => _velocity = X, 0f, .25f * Time.deltaTime);
+            DOTween.To(() => _velocity, X => _velocity = X, 0f, .25f );
         }
+
+       
+        
 
         if(blendVariable <4)
         {
@@ -120,9 +141,6 @@ public class PlayerMoveNav : MonoBehaviour
         {
             WolfAttackedFunc();
         }
-
-       
-        //Debug.Log(player.remainingDistance);
    
         if(ReachedHome || isPaused || wolfattacked)
         {
@@ -156,11 +174,12 @@ public class PlayerMoveNav : MonoBehaviour
 
     private void WolfAttackedFunc()
     {
-        _playeranimator.SetBool("WolfAttacked", true);
+       
         Vector3 Turndirection = WolfPosition - transform.position;
         Turndirection.y = 0f;
         Turndirection.Normalize();
         DOTween.To(() => transform.forward, X => transform.forward = X, Turndirection, 0.8f * Time.deltaTime);
+        _playeranimator.SetBool("WolfAttacked", true);
         player.isStopped = true;
         
     }
@@ -172,11 +191,6 @@ public class PlayerMoveNav : MonoBehaviour
         distleft = Mathf.Clamp(distleft, 0, 10);
 
         DOTween.To(() => DistToHome.value, X => DistToHome.value = X, distleft, 1.25f * Time.deltaTime);
-        if (distleft == 0)
-        {
-            
-            gameManager.GameFinished();
-        }
     }
 
     private void GettingMouseInputtoMove()
@@ -197,10 +211,11 @@ public class PlayerMoveNav : MonoBehaviour
 
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hitInfo;
-                //Debug.Log("Double click worked");
+                
 
                 if (Physics.Raycast(ray, out hitInfo, 100, isground))
                 {
+                    target = hitInfo.point;
                     Vector3 MovemarkerOffset = new Vector3(0,0.3f,0);
                     if (!wolfattacked && !ReachedHome && !isPaused)
                     {
@@ -215,12 +230,16 @@ public class PlayerMoveNav : MonoBehaviour
                         {
                             MoveMarker.SetActive(false);
                         }
+                        if(player.isStopped == false)
+                        {
+                            player.isStopped = true;
+                        }
                     }
                    
                     direction = hitInfo.point - transform.position;
                     direction.y = 0f;
                     direction.Normalize();
-                    //Debug.Log(direction);
+                    
                     if (!ReachedHome && !isPaused && !wolfattacked)
                     {
                         DOTween.To(() => transform.forward, X => transform.forward = X, direction, 1.8f * Time.deltaTime);
@@ -239,7 +258,6 @@ public class PlayerMoveNav : MonoBehaviour
                 ClickSoundSource.Play();
             }
             MoveMarker.SetActive(false);
-            //player.velocity;
             DOTween.To(() => _velocity, X => _velocity = X, 0f, .05f);
             DOTween.To(() => player.velocity, X => player.velocity = X, Vector3.zero, 1.25f * Time.deltaTime);
             player.SetDestination(transform.position);

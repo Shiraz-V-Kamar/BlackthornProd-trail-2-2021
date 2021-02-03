@@ -14,11 +14,14 @@ public class StencilSphereBehavior : MonoBehaviour
     public LayerMask hurdles;
     private bool _canPlayReliefSound;
 
-    public Vector3 FirePos;
+    public LayerMask enemyLayerMask;
+
+    private Vector3 FirePos;
 
     private bool _NearFire;
     
     private float distToFire;
+    private float SphereOverlapRadius;
     [SerializeField]
     private float FireSoundlimit = 5f;
 
@@ -31,11 +34,63 @@ public class StencilSphereBehavior : MonoBehaviour
 
     private void Update()
     {
-        if(playerMoveNav.ReachedHome)
-        { 
-            heartbeatsource.Pause();
-            heartbeatsource.volume = 1f;
+        if(playerMoveNav.visionItensityValueHolder > 0.7)
+        {
+            DOTween.To(() => SphereOverlapRadius, x => SphereOverlapRadius = x, 8.5f, 1.5f);
+        }else if (playerMoveNav.visionItensityValueHolder  < 0.7)
+        {
+            DOTween.To(() => SphereOverlapRadius, x => SphereOverlapRadius = x, 17.5f, 1.5f);
         }
+
+        Collider[] hitcolliders = Physics.OverlapSphere(transform.position,SphereOverlapRadius,enemyLayerMask);
+        if (hitcolliders.Length>0)
+        {
+            for (int i = 0; i < hitcolliders.Length; i++)
+            {
+                if (hitcolliders[i].gameObject.tag == "enemy")
+                {
+                    Vector3 direction = hitcolliders[i].transform.position - transform.position;
+                    direction.y = 0f;
+                    direction.Normalize();
+                    ray = new Ray(transform.position + Vector3.up, direction);
+
+                    float dist = Vector3.Distance(transform.position, hitcolliders[i].gameObject.transform.position);
+                    if (Physics.Raycast(ray, dist, hurdles))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        hitcolliders[i].gameObject.GetComponent<WolfManager>().SetInPlayerVision(true);
+                        hitcolliders[i].gameObject.GetComponent<WolfManager>().PassPlayerScript(this.transform.parent.gameObject);
+                        hitcolliders[i].gameObject.GetComponent<WolfScript>().ObjwithwolfMaterial.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+
+                        heartbeatsource.DOPitch(1.5f, 1f);
+                    }
+                    if(playerMoveNav.ReachedHome)
+                    {
+                        hitcolliders[i].gameObject.GetComponent<WolfScript>().playWolfHowlSound = false;
+                        hitcolliders[i].gameObject.GetComponent<WolfScript>().WolfGrowlSource.Stop() ;
+                    }
+                }
+              
+            }
+
+        }
+        else
+        {
+            if (_canPlayReliefSound)
+            {
+                PlayerReaction = StartCoroutine(PlayReliefSoundFuction());
+            }
+            heartbeatsource.DOPitch(1f, 1f);
+        }      
+       
+        if(playerMoveNav.ReachedHome)
+        {
+            FadeHeartbeat();
+        }
+
         distToFire = Vector3.Distance(transform.position, FirePos);
         if (_NearFire)
         {
@@ -52,12 +107,9 @@ public class StencilSphereBehavior : MonoBehaviour
                 heartbeatsource.DOFade(0f, 1.5f);
                
             }
-        }else
-        {
-           
-
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "enemy")
@@ -67,27 +119,7 @@ public class StencilSphereBehavior : MonoBehaviour
                 StopCoroutine(PlayerReaction);
             }
             _canPlayReliefSound = true;
-            Debug.Log("enemy detected");
-            if (other.gameObject.GetComponent<WolfManager>() != null)
-            {
-                ray = new Ray(transform.position + Vector3.up, other.gameObject.transform.position);
-                float dist = Vector3.Distance(transform.position, other.gameObject.transform.position);
-                if (Physics.Raycast(ray, dist, hurdles))
-                {
-                    return;
-                }
-                else
-                {
-                    heartbeatsource.DOPitch(1.5f, 1f);
-                    other.gameObject.GetComponent<WolfManager>().SetInPlayerVision(true);
-                    other.gameObject.GetComponent<WolfManager>().PassPlayerScript(this.transform.parent.gameObject);
-                    other.gameObject.GetComponent<WolfScript>().ObjwithwolfMaterial.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-                }
-            }
-            else
-            {
-                Debug.Log("enemy Object doesnt have the scripts attached");
-            }
+
         }
         if(other.tag =="Fire")
         {
@@ -119,16 +151,13 @@ public class StencilSphereBehavior : MonoBehaviour
         }
         if (other.tag == "enemy")
         {
-           if(_canPlayReliefSound)
-            {
-                
-                PlayerReaction = StartCoroutine(PlayReliefSoundFuction());
-            }
-            heartbeatsource.DOPitch(1f, 1f);
+     
+            
             other.gameObject.GetComponent<WolfScript>().ObjwithwolfMaterial.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             other.gameObject.GetComponent<WolfManager>().SetInPlayerVision(false);
         }
     }
+
     Coroutine PlayerReaction;
     
 
@@ -146,5 +175,12 @@ public class StencilSphereBehavior : MonoBehaviour
     public void FadeHeartbeat()
     {
         heartbeatsource.DOFade(0f, 2f);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, SphereOverlapRadius);
     }
 }

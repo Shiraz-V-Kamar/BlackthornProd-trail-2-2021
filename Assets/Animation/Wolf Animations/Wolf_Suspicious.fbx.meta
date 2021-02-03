@@ -58,15 +58,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.9546314
-        functionName: SetaValue
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: fbaa9e8841e9a4a4580b1c387d99043d,
-          type: 3}
-        floatParameter: 0
-        intParameter: 5
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

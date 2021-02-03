@@ -4,7 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 59ce364109cca084f89db486b50cc33e
+  - enabled: 1
+    path: Assets/Scenes/Enemy behavior Prototype.unity
+    guid: 8aee12b3d547c5e4cbe471053c489a1f
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 052de2c50688ec74abc934c320e08640,
       type: 2}

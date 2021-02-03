@@ -73,7 +73,8 @@
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs" />
     <Compile Include="Assets\Farmer Base\FarmerAnimControl.cs" />
     <Compile Include="Assets\GameManager.cs" />
-    <Compile Include="Assets\Images\Menu Toggle.cs" />
+    <Compile Include="Assets\Images\MenuToggle.cs" />
+    <Compile Include="Assets\PlayerReactionControl.cs" />
     <Compile Include="Assets\Scripts\HoldEventInfo.cs" />
     <Compile Include="Assets\Scripts\KillSphereCode.cs" />
     <Compile Include="Assets\Scripts\Player\MovementOldInput.cs" />
@@ -86,6 +87,8 @@
     <Compile Include="Assets\Scripts\Wolf Scripts\WolfManager.cs" />
     <Compile Include="Assets\Scripts\Wolf Scripts\WolfVisuals.cs" />
     <Compile Include="Assets\Scripts\WolfScript.cs" />
+    <Compile Include="Assets\destinationReached.cs" />
+    <Compile Include="Assets\wolfRepellentScript.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\Shaders\StylizedSurface\StylizedSurfaceStencil buffer.shader" />
@@ -667,6 +670,9 @@
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Formats.Alembic.Runtime">
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.Formats.Alembic.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.InputSystem">
       <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.InputSystem.dll</HintPath>
     </Reference>
@@ -694,17 +700,14 @@
     <Reference Include="com.unity.cinemachine.editor">
       <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Formats.Alembic.Editor">
+      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.Formats.Alembic.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Formats.Alembic.Runtime">
-      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.Formats.Alembic.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Formats.Alembic.Editor">
-      <HintPath>D:/Works/Unity Projects/Gamejam Games/Jam 22-1-2021/BlackthornProd-trail-2-2021/Library/ScriptAssemblies/Unity.Formats.Alembic.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - enemy
   - 'Dontcheck '
+  - Fire
   layers:
   - Default
   - TransparentFX

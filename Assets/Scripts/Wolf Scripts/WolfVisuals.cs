@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class WolfVisuals : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public ParticleSystem wolfTriggerParticle;
+    
+    public void TriggerWolfDetectionParticl()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        wolfTriggerParticle.Play();
     }
 }

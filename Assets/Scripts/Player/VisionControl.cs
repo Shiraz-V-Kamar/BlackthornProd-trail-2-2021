@@ -19,7 +19,7 @@ public class VisionControl : MonoBehaviour
 
     private PostProcessVolume _volume;
     [HideInInspector]
-    public float _VignetteIntensityValue;
+    public float _VignetteIntensityValue= 1f;
     [HideInInspector]
     public float _GrainIntensityValue;
 
@@ -33,8 +33,15 @@ public class VisionControl : MonoBehaviour
     private float grainControlVal;
     private float vignetteControlVal;
     private float _sphereScaleValue;
-    
 
+    private AudioSource VisionSoundSource;
+    private float VisionSoundControl;
+
+    private void Start()
+    {
+        vignetteControlVal = 1;
+        VisionSoundSource = GetComponent<AudioSource>();
+    }
     public void Update()
     {
         //VignetteIntensitySlider.value = _VignetteIntensityValue;
@@ -52,6 +59,7 @@ public class VisionControl : MonoBehaviour
         }
         else
         {
+            VisionSoundControl += (Input.mouseScrollDelta.y * _mouseScrollVignetteScale);
             grainControlVal += -(Input.mouseScrollDelta.y * _mouseScrollVignetteScale);
             vignetteControlVal += -(Input.mouseScrollDelta.y * _mouseScrollVignetteScale);
             _sphereScaleValue += (Input.mouseScrollDelta.y * _mouseScrollSphereScale);
@@ -59,10 +67,11 @@ public class VisionControl : MonoBehaviour
             //VignetteIntensitySlider.value = _VignetteIntensityValue;
             DOTween.To(() => VignetteIntensitySlider.value, X => VignetteIntensitySlider.value = X, _VignetteIntensityValue, .25f);
         }
-
+        
         if (vignetteControlVal > 1)
         {
-            _sphereScaleValue = 23;
+            VisionSoundControl = 0f;
+            _sphereScaleValue = 17f;
             grainControlVal = 0.3f;
             vignetteControlVal = 1;
             VignetteIntensitySlider.value = 1f;
@@ -71,20 +80,25 @@ public class VisionControl : MonoBehaviour
         }
         else if (vignetteControlVal < 0.4f)
         {
-            _sphereScaleValue = 40;
+            VisionSoundControl = 0.8f;
+            _sphereScaleValue = 32f;
             vignetteControlVal = 0.4f;
             grainControlVal= 0;
             VignetteIntensitySlider.value = 0.4f;
         }
+      
         grainControlVal= Mathf.Clamp(grainControlVal, 0f, 0.3f);
         vignetteControlVal = Mathf.Clamp(vignetteControlVal, 0.4f, 1f);
-        _sphereScaleValue = Mathf.Clamp(_sphereScaleValue, 23f, 40f);
-
-        DOTween.To(setvalueforVignettetween, _VignetteIntensityValue, vignetteControlVal, 1f);
-        DOTween.To(setvalueforGraintween, _GrainIntensityValue, grainControlVal, 1f);
+        _sphereScaleValue = Mathf.Clamp(_sphereScaleValue, 17f, 32f);
+        VisionSoundControl = Mathf.Clamp(VisionSoundControl, 0, 0.8f);
+       
+        DOTween.To(setvalueforVignettetween, _VignetteIntensityValue, Mathf.Clamp(vignetteControlVal,0.4f,3f), 0.5f);
+        DOTween.To(setvalueforGraintween, _GrainIntensityValue, grainControlVal, 0.5f);
+        VisionSoundSource.DOPitch(VisionSoundControl, 0.5f);
+        
         if (StencilSphere != null)
         {
-            StencilSphere.transform.DOScale(new Vector3(_sphereScaleValue, _sphereScaleValue, _sphereScaleValue), 1);
+            StencilSphere.transform.DOScale(new Vector3(_sphereScaleValue, _sphereScaleValue, _sphereScaleValue), 1.5f);
         }
     }
 
